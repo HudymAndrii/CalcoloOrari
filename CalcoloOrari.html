@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⏰ Calcolatore Data Ora</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <style>
+        body {
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .row > div {
+            flex: 1;
+            padding: 0 10px;
+        }
+        input[type="text"], input[type="time"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Added to maintain width with padding */
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+
+$(function() {
+    $(".datepicker").datepicker({ dateFormat: "dd/mm/yy" });
+
+    function calculateEndTime(date, time, durationSec) {
+        var hours = parseInt(time.split(":")[0]);
+        var minutes = parseInt(time.split(":")[1]);
+        var dateParts = date.split("/");
+        var dateObject = new Date(dateParts[2], dateParts[1] - 1, dateParts[0], hours, minutes);
+        dateObject.setSeconds(dateObject.getSeconds() + parseInt(durationSec));
+
+        return $.datepicker.formatDate("dd/mm/yy", dateObject) + " " +
+               dateObject.toTimeString().split(" ")[0];
+    }
+
+    function calculateDuration(durationSec) {
+        var hours = Math.floor(durationSec / 3600);
+        var minutes = Math.floor((durationSec % 3600) / 60);
+        return hours + " ore e " + minutes + " minuti";
+    }
+
+    $(".row input").on("input change", function() {
+        var $row = $(this).closest(".row");
+        var date = $row.find(".datepicker").val();
+        var time = $row.find(".time").val();
+        var duration = $row.find(".duration").val();
+        var result = "";
+        var durationText = "";
+
+        if(duration) {
+            durationText = calculateDuration(duration);
+        }
+
+        // Se sia la data che l'ora sono fornite, calcoliamo anche la data e l'ora di fine
+        if(date && time && duration) {
+            result = calculateEndTime(date, time, duration);
+        }
+
+        $row.find(".result").val(result);
+        $row.find(".durationText").val(durationText);
+    });
+});
+
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Repeat this row for 5 times or as many as you need -->
+        <div class="row">
+            <div>
+                <label for="datePicker1">Data inizio interruzione</label>
+                <input type="text" id="datePicker1" class="datepicker" placeholder="Select Date">
+            </div>
+            <div>
+                <label for="time1">Orario inizio di interruzione</label>
+                <input type="time" id="time1" class="time" placeholder="HH:MM">
+            </div>
+            <div>
+                <label for="duration1">Secondi</label>
+                <input type="number" id="duration1" class="duration" placeholder="Duration in seconds">
+            </div>
+            <div>
+                <label for="result1">Risultato</label>
+                <input type="text" id="result1" class="result" placeholder="End Date & Time" readonly>
+            </div>
+            <div>
+                <label for="durationText1">Durata</label>
+                <input type="text" id="durationText1" class="durationText" placeholder="Durata" readonly>
+            </div>
+        </div>
+
+	<div class="row">
+            <div>
+                <label for="datePicker2">Data inizio interruzione</label>
+                <input type="text" id="datePicker2" class="datepicker" placeholder="Select Date">
+            </div>
+            <div>
+                <label for="time2">Orario inizio di interruzione</label>
+                <input type="time" id="time2" class="time" placeholder="HH:MM">
+            </div>
+            <div>
+                <label for="duration2">Secondi</label>
+                <input type="number" id="duration2" class="duration" placeholder="Duration in seconds">
+            </div>
+            <div>
+                <label for="result2">Risultato</label>
+                <input type="text" id="result2" class="result" placeholder="End Date & Time" readonly>
+            </div>
+            <div>
+                <label for="durationText2">Durata</label>
+                <input type="text" id="durationText2" class="durationText" placeholder="Durata" readonly>
+            </div>
+        </div>
+
+
+	<div class="row">
+            <div>
+                <label for="datePicker3">Data inizio interruzione</label>
+                <input type="text" id="datePicker3" class="datepicker" placeholder="Select Date">
+            </div>
+            <div>
+                <label for="time3">Orario inizio di interruzione</label>
+                <input type="time" id="time3" class="time" placeholder="HH:MM">
+            </div>
+            <div>
+                <label for="duration3">Secondi</label>
+                <input type="number" id="duration3" class="duration" placeholder="Duration in seconds">
+            </div>
+            <div>
+                <label for="result3">Risultato</label>
+                <input type="text" id="result3" class="result" placeholder="End Date & Time" readonly>
+            </div>
+            <div>
+                <label for="durationText3">Durata</label>
+                <input type="text" id="durationText3" class="durationText" placeholder="Durata" readonly>
+            </div>
+        </div>
+
+
+
+	<div class="row">
+            <div>
+                <label for="datePicker4">Data inizio interruzione</label>
+                <input type="text" id="datePicker4" class="datepicker" placeholder="Select Date">
+            </div>
+            <div>
+                <label for="time4">Orario inizio di interruzione</label>
+                <input type="time" id="time4" class="time" placeholder="HH:MM">
+            </div>
+            <div>
+                <label for="duration4">Secondi</label>
+                <input type="number" id="duration4" class="duration" placeholder="Duration in seconds">
+            </div>
+            <div>
+                <label for="result4">Risultato</label>
+                <input type="text" id="result4" class="result" placeholder="End Date & Time" readonly>
+            </div>
+            <div>
+                <label for="durationText4">Durata</label>
+                <input type="text" id="durationText4" class="durationText" placeholder="Durata" readonly>
+            </div>
+        </div>
+
+
+
+	<div class="row">
+            <div>
+                <label for="datePicker5">Data inizio interruzione</label>
+                <input type="text" id="datePicker5" class="datepicker" placeholder="Select Date">
+            </div>
+            <div>
+                <label for="time5">Orario inizio di interruzione</label>
+                <input type="time" id="time5" class="time" placeholder="HH:MM">
+            </div>
+            <div>
+                <label for="duration5">Secondi</label>
+                <input type="number" id="duration5" class="duration" placeholder="Duration in seconds">
+            </div>
+            <div>
+                <label for="result5">Risultato</label>
+                <input type="text" id="result5" class="result" placeholder="End Date & Time" readonly>
+            </div>
+            <div>
+                <label for="durationText5">Durata</label>
+                <input type="text" id="durationText5" class="durationText" placeholder="Durata" readonly>
+            </div>
+        </div>
+
+
+
+	<div class="row">
+            <div>
+                <label for="datePicker6">Data inizio interruzione</label>
+                <input type="text" id="datePicker6" class="datepicker" placeholder="Select Date">
+            </div>
+            <div>
+                <label for="time6">Orario inizio di interruzione</label>
+                <input type="time" id="time6" class="time" placeholder="HH:MM">
+            </div>
+            <div>
+                <label for="duration6">Secondi</label>
+                <input type="number" id="duration6" class="duration" placeholder="Duration in seconds">
+            </div>
+            <div>
+                <label for="result6">Risultato</label>
+                <input type="text" id="result6" class="result" placeholder="End Date & Time" readonly>
+            </div>
+            <div>
+                <label for="durationText6">Durata</label>
+                <input type="text" id="durationText6" class="durationText" placeholder="Durata" readonly>
+            </div>
+        </div>
+
+
+        <!-- Copy and paste the above div.row for more rows -->
+    </div>
+
+<div style="text-align: center; margin-top: 20px;">
+    Sviluppato da Hudym Andrii
+</div>
+
+</body>
+</html>
